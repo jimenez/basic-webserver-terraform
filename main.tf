@@ -1,8 +1,3 @@
-resource "aws_key_pair" "key_pair" {
-  key_name   = "key"
-  public_key = file("id_rsa.pub")
-}
-
 // Find the latest available Canonical, Ubuntu, 20.04 LTS, arm64 focal AMI
 data "aws_ami" "ubuntu" {
   // Canonical Owner
@@ -28,8 +23,6 @@ resource "aws_instance" "demoInstance" {
     Name  = "webserver"
     Value = "demo"
   }
-
-  key_name = aws_key_pair.key_pair.key_name
 
   vpc_security_group_ids = [aws_security_group.demoSecG.id]
 
@@ -82,22 +75,6 @@ resource "aws_security_group" "demoSecG" {
     from_port   = 80
     protocol    = "tcp"
     to_port     = 80
-  }
-
-  // Allow ssh
-  ingress {
-    cidr_blocks = ["0.0.0.0/0"]
-    from_port   = 22
-    protocol    = "tcp"
-    to_port     = 22
-  }
-
-  // Allow ping for test
-  ingress {
-    cidr_blocks = ["0.0.0.0/0"]
-    from_port   = -1
-    protocol    = "icmp"
-    to_port     = -1
   }
 
   egress {

@@ -25,7 +25,7 @@ $ export TF_VAR_aws_access_key_id=<KEY>
 $ export TF_VAR_aws_secret_access_key=<SECRET>
 ```
 
-Run Terraform plan commande to create an execution plan and check if this matches expectations.
+Run Terraform plan command to create an execution plan and check if this matches expectations.
 
 ```sh
 $ terraform plan -out plan.out
@@ -37,7 +37,8 @@ Run Terraform apply.
 $ terraform apply plan.out
 ```
 
-The output should include both the public DNS and IP, where the webserver should be reacheable.
+The output should include both the public DNS and IP, where the webserver should be reacheable, please allow some time
+for Docker and the AWS cli to be installed, and for the container to run.
 ```sh
 $ curl <PUBLIC_IP>
 ```
